@@ -25,7 +25,6 @@ def status():
         app.logger.info(f"Pumps available: {pumps}")
         pump_obj = {'pump_count': len(pumps),
                     'status': []}
-        time.sleep(.5)
         for pump in pumps:
             pump_obj['status'].append(pump.serialize())
         return jsonify(pump_obj)
@@ -40,8 +39,6 @@ def status():
         db.session.commit()
         pumps = Pump.query.all()
 
-        # adding a half sleep to test something
-        time.sleep(.5)
         return jsonify([b.serialize() for b in pumps])
     else:
         err = jsonify({'error': 'Invalid request method'})
